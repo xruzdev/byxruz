@@ -164,7 +164,7 @@ export const AboutPageClient = () => {
             {
               type: "DevOps",
               technologies: [
-                "Cloudflare Workers",
+                "Cloudflare",
                 "Vercel",
                 "Netlify",
                 "Render",

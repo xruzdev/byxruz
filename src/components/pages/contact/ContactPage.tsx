@@ -14,7 +14,7 @@ export const ContactPageClient = () => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("loading");
+    setStatus("enviando");
 
     const form = e.currentTarget;
 
@@ -27,7 +27,7 @@ export const ContactPageClient = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3030/send-email", {
+      const res = await fetch("https://api-mail-sender.onrender.com/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -192,12 +192,12 @@ export const ContactPageClient = () => {
             onMouseEnter={() => setCursorSize(0)}
             onMouseLeave={() => setCursorSize(20)}
             type="submit"
-            disabled={status === "loading"}
+            disabled={status === "enviando"}
             style={{
-              width: status === "loading" ? "10rem" : "9rem",
+              width: status === "enviando" ? "10rem" : "9rem",
               transition: "width 0.3s ease, background-color 0.3s ease",
               backgroundColor:
-                status === "loading"
+                status === "enviando"
                   ? "#4e4e4e"
                   : status === "Mensaje enviado"
                   ? "#28a745"
@@ -208,7 +208,7 @@ export const ContactPageClient = () => {
             className="mt-10 cursor-pointer px-6 py-3 bg-orange text-background font-bold  flex items-center justify-center   uppercase rounded-lg lg:hover:bg-orange/80    -translate-x-200"
           >
             {status}{" "}
-            {status === "loading" && (
+            {status === "enviando" && (
               <svg
                 className="inline w-5 h-5 animate-spin ml-2 text-background"
                 xmlns="http://www.w3.org/2000/svg"

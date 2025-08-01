@@ -42,6 +42,8 @@ export const PageTransition = () => {
             store.setIsTransitioning(false);
             store.setCanAnimate(true);
            store.setCanScroll(true);
+           store.setCursorSize(20);
+           store.setCursorText("");
             gsap.to(document.body.querySelector("main"), {
               opacity: 1,
               duration: 0.5,
