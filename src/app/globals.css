@@ -1,26 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Sora:wght@100..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap");
+@import url("https://use.typekit.net/nrb6bgl.css"); 
+@import url("../fonts/pp-neue/pp-neue.css");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ddded5;
+  --foreground: #080808;
+  --orange: #ff5f1a;
+  --font-display: "bebas-neue-pro-expanded", sans-serif;
+  --font-text: "bebas-neue-pro", sans-serif;
+
 }
 
-@theme inline {
+ 
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-orange: var(--orange);
+  --color-light: #ddded5;
+  --color-dark: #0f0f0f;
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --animate-rotate: rotate 15s linear infinite;
+  --animate-rotate-fast: rotate 5s linear infinite;
+  --animate-fly: fly 2s ease-in-out infinite;
+  --animate-fade-in: fadeIn 1s ease-out forwards;
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes fly {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #080808;
+    --foreground: #ddded5;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+p,
+span,
+a,
+li,
+button {
+  font-family: var(--font-text);
+}
+
+.about-text {
+  font-size: clamp(1.55em, 2.3vw, 2.5em);
+  line-height: 1.45;
+}
+
+.loader-logo {
+  background-color: var(--background);
+
+  mask-image: url("/loader-mask-2.png");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+
+  -webkit-mask-image: url("/loader-mask-2.png");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* Specific features */
+.fragment {
+  background: var(--foreground);
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.fragment::after {
+  animation: noise 9s steps(10) infinite;
+  background-image: url("/ruido.jpg");
+  content: "";
+  height: 500%;
+  left: -100%;
+  z-index: 100;
+  position: fixed;
+  top: -100%;
+  width: 500%;
+}
+
+@keyframes noise {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-3%, -6%);
+  }
+
+  20% {
+    transform: translate(-9%, 3%);
+  }
+
+  30% {
+    transform: translate(12%, -9%);
+  }
+
+  40% {
+    transform: translate(-15%, 12%);
+  }
+
+  50% {
+    transform: translate(-3%, -3%);
+  }
+
+  60% {
+    transform: translate(12%, 0%);
+  }
+
+  70% {
+    transform: translate(0%, 12%);
+  }
+
+  80% {
+    transform: translate(3%, 3%);
+  }
+
+  90% {
+    transform: translate(-15%, 15%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }

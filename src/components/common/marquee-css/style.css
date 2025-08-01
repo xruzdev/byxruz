@@ -1,0 +1,105 @@
+.marquee {
+  --marquee--colour: transparent;
+  --marquee--repeat-count: 16;
+  --marquee-color-after: #ff5f1a;
+  --marquee--base-duration: 1s;
+  --marquee--repeat-size: calc(100% / var(--marquee--repeat-count));
+  --marquee--double-size: calc(var(--marquee--repeat-size) * 2);
+  --marquee--duration: calc(
+    var(--marquee--base-duration) * var(--char-count, 20)
+  );
+  overflow: hidden;
+  width: 0%;
+  margin-left: -5%;
+  
+   
+  background: var(--marquee--colour);
+  
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .marquee {
+    --marquee--colour: #ff5f1a;
+     --marquee-color-after: #0f0f0f;
+  }
+}
+
+
+/* .marquee:nth-child(even) {
+  --marquee--direction: -1;
+  transform: rotate(5deg);
+  background: #000;
+  color: var(--marquee--colour);
+} */
+.marquee p {
+  transform: translateY(100px);
+  font-weight: bold;
+  margin: 0;
+  display: flex;
+  align-items: start;
+  gap: 0.1em;
+  
+  line-height: 1.1;
+ /*  font-size: clamp(2.5rem, 12vw, 6.2rem);  */
+  /* An empty psuedo element creates a gap after the last element */
+}
+.marquee p::after {
+  content: "*";
+  transform: translateY(0.175em);
+  color: var(--marquee-color-after)  ;
+}
+.marquee p::before {
+  content: "";
+}
+.marquee--inner {
+  width: max-content;
+  display: flex;
+  text-transform: uppercase;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee--inner {
+    animation: marquee var(--marquee--duration) infinite linear,
+      reduce-marquee var(--marquee--duration) infinite linear paused;
+    animation-composition: add;
+  }
+  /*   .marquee--inner:hover {
+    animation-play-state: running;
+  } */
+}
+@keyframes marquee {
+  from {
+    transform: translateX(
+      calc(
+        (-1 * var(--marquee--double-size)) -
+          (var(--marquee--double-size) * var(--marquee--direction, 1))
+      )
+    );
+  }
+  to {
+    transform: translateX(calc(var(--marquee--double-size) * -1));
+  }
+}
+@keyframes reduce-marquee {
+  from {
+    transform: translateX(
+      calc(var(--marquee--repeat-size) * var(--marquee--direction, 1))
+    );
+  }
+  to {
+    transfrom: translateX(calc(var(--marquee--double-size) * -1));
+  }
+}
+
+/*  
+ button {
+   position: absolute;
+   top: 20px;
+   left: 20px;
+}
+ button[aria-pressed='true'] {
+   filter: invert(1);
+}
+ [aria-pressed='true'] + * .marquee--inner {
+   animation-play-state: paused !important;
+} */
