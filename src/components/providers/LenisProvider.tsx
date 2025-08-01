@@ -47,7 +47,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
     if (!lenisRef.current || !lenisRef.current.lenis) return;
 
-    console.log(startLenis);
+    
 
     if (startLenis) {
       lenisRef.current.lenis.start();
