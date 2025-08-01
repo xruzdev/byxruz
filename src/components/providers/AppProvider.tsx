@@ -38,7 +38,7 @@ export function AppProvider({ children }: AppProviderProps) {
         <Nav />
         <VirtualScrollBar />
         <GrainyBackground />
-        <PreLoader />
+      <PreLoader />  
         <PageTransition />
         <Cursor />
         <main className="h-auto w-screen">
