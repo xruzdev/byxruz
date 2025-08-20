@@ -17,9 +17,8 @@ export function ParallaxProvider({ children }: ParallaxProviderProps) {
   useGSAP(
     () => {
       const elements = gsap.utils.toArray("[data-scroll]") as HTMLElement[];
-      const horizontal = gsap.utils.toArray(
-        "[data-scroll-horizontal]"
-      ) as HTMLElement[];
+
+      const mm = gsap.matchMedia();
 
       elements.forEach((el) => {
         let speed = Number(el.dataset.scrollSpeed) || 0;
@@ -40,21 +39,23 @@ export function ParallaxProvider({ children }: ParallaxProviderProps) {
         });
       });
 
-      if (window.innerWidth < 768) return;
+      mm.add("(width>=1024px)", () => {
+        const horizontal = gsap.utils.toArray(
+          "[data-scroll-horizontal]"
+        ) as HTMLElement[];
+        horizontal.forEach((el) => {
+          const speed = Number(el.dataset.scrollSpeed) || 0;
 
-      horizontal.forEach((el) => {
-        const speed = Number(el.dataset.scrollSpeed) || 0;
-        
-
-        gsap.to(el, {
-          x: speed * 100,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-          },
+          gsap.to(el, {
+            x: speed * 100,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          });
         });
       });
     },

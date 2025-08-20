@@ -71,14 +71,13 @@ export const FeaturedWork = () => {
       const workItems = gsap.utils.toArray(".work-item") as HTMLDivElement[];
 
       workItems.forEach((item, index) => {
-
         gsap.from(item.querySelector(".panel"), {
           y: 500,
 
           ease: "linear",
           scrollTrigger: {
             trigger: item,
-          
+
             start: "top 90%",
             end: "bottom 90%",
             toggleActions: "play none none reverse",
@@ -175,7 +174,7 @@ export const FeaturedWork = () => {
         >
           <div
             className={
-              "panel w-full lg:w-2/5 h-full flex flex-col justify-center items-center  xl:gap-5   " +
+              "panel w-full lg:w-2/5 h-full flex flex-col justify-center items-center  xl:gap-5  z-505 " +
               (index % 2 === 0 ? "lg:items-start" : "lg:items-end")
             }
           >
@@ -197,6 +196,7 @@ export const FeaturedWork = () => {
               }
             >
               {work.description}
+             
             </p>
 
             <Link
@@ -262,8 +262,6 @@ export const FeaturedWork = () => {
           />
         </div>
       ))}
-
-       
     </section>
   );
 };

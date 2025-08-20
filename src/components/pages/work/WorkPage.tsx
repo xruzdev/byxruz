@@ -114,13 +114,13 @@ export const WorkContainer = () => {
           data-scroll-horizontal
           data-scroll-speed={index % 2 === 0 ? "0.9" : "-0.9"}
           className={
-            "work-item w-full opacity-0 h-100 md:h-150 lg:h-60 xl:h-75 2xl:h-100 flex flex-col-reverse gap-10 lg:gap-0 items-center justify-evenly " +
+            "work-item w-full opacity-0 h-100 md:h-150 lg:h-60 xl:h-75 2xl:h-100 flex flex-col-reverse    gap-10 lg:gap-0 items-center justify-evenly " +
             (index % 2 === 0 ? "lg:flex-row " : " lg:flex-row-reverse ")
           }
         >
           <div
             className={
-              "panel w-full lg:w-2/5 h-full flex flex-col justify-center items-center  xl:gap-5   " +
+              "panel w-full lg:w-2/5 h-full flex flex-col justify-center items-center relative   xl:gap-5   " +
               (index % 2 === 0 ? "lg:items-start" : "lg:items-end")
             }
           >
@@ -142,6 +142,44 @@ export const WorkContainer = () => {
               }
             >
               {work.description}
+                {work.title === "Flex Mkt Agency" && (
+                <>
+                  <br />
+                  <span>
+                    {" "}
+                    Diseño inspirado en la web{" "}
+                    <a
+                      onMouseEnter={() => {
+                        setCursorSize(0);
+                      }}
+                      onMouseLeave={() => {
+                        setCursorSize(20);
+                      }}
+                      className="border-b"
+                      target="_blank"
+                      href="https://twicemediahouse.com/"
+                    >
+                      Twice Media House
+                    </a>
+                    <br className="hidden lg:block xl:hidden"/>{" "}
+                    creada por{" "}
+                    <a
+                     onMouseEnter={() => {
+                        setCursorSize(0);
+                      }}
+                      onMouseLeave={() => {
+                        setCursorSize(20);
+                      }}
+                      className="border-b"
+                      target="_blank"
+                      href="https://dennissnellenberg.com/"
+                    >
+                      Dennis Snellenberg
+                    </a>
+                    .
+                  </span>
+                </>
+              )}
             </p>
 
             <Link
@@ -203,7 +241,7 @@ export const WorkContainer = () => {
               setCursorColor("var(--color-orange)");
               setCursorText("");
             }}
-            className="w-full h-3/5 lg:h-full lg:w-3/5 2xl:w-1/2  z-0 rounded-2xl object-cover cursor-pointer "
+            className="w-full h-3/5 lg:h-full lg:w-3/5 2xl:w-1/2 rounded-2xl object-cover cursor-pointer "
           />
         </div>
       ))}

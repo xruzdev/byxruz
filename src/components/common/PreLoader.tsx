@@ -27,15 +27,8 @@ export const PreLoader = () => {
             setIsPreloading(true);
             setCanAnimate(false);
           },
-          onComplete: () => {
-            setIsPreloading(false);
-            setCanAnimate(true);
-          },
-        })
-        .to(preLoaderRef.current, {
-          opacity: 1,
-          duration: 0.5,
-        })
+          
+        }) 
         .to(".loader-bar", {
           scaleY: 1,
           ease: "power1.inOut",
@@ -43,10 +36,23 @@ export const PreLoader = () => {
           transformOrigin: "bottom",
         })
         .to(".hider", {
-          delay: 0.2,
+           
           translateY: "-50%",
-          duration: 1,
+          duration: 1.5,
+          delay: 0.5,
           ease: "power4.out",
+          onStart: () => {
+            setIsPreloading(false);
+            setCanAnimate(true);
+          },
+          
+        })
+        .to(preLoaderRef.current,{
+          duration: 1.5,
+          
+          delay:-1.5,
+          ease: "power4.out",
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
         })
         .set(preLoaderRef.current, {
           display: "none",
@@ -85,7 +91,10 @@ export const PreLoader = () => {
   return (
     <div
       ref={preLoaderRef}
-      className="     opacity-0  flex items-center justify-center  w-screen h-[100dvh] md:h-screen rounded-lg fixed top-0 left-0 z-200 bg-background "
+      style={{
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      }}
+      className="  flex items-center justify-center  w-screen h-[100dvh] md:h-screen rounded-lg fixed top-0 left-0 z-200 bg-background "
     >
       <div className="loader-logo size-15 md:size-20 z-200 " />
       <div className="loader-bg absolute top-1/2 left-1/2 -translate-x-1/2 bg-orange/50 -translate-y-1/2 loader-bg size-14 md:size-19 z-40" />

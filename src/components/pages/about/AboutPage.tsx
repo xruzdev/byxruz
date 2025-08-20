@@ -27,58 +27,88 @@ export const AboutPageClient = () => {
       .to(".panel", {
         x: 0,
         duration: 1.5,
-        delay:-0.5,
+        delay: -0.5,
         ease: "power4.out",
       })
-      .to("h1", {
-        y: 0,
-        duration: 1.5,
-        delay:-0.5,
-        ease: "power4.out",
-      },"<");
+      .to(
+        "h1",
+        {
+          y: 0,
+
+          duration: 1.5,
+          delay: -0.5,
+          ease: "power4.out",
+        },
+        "<"
+      );
   }, [canAnimate]);
 
   return (
     <section
       ref={aboutRef}
-      className=" h-auto min-h-screen   py-30 flex flex-col gap-10 lg:gap-20 xl:gap-30 items-center justify-start  px-6 md:px-10 lg:px-26  z-500 "
+      className=" h-auto min-h-screen  py-25 md:py-30 flex flex-col gap-10 lg:gap-20 xl:gap-30 items-center justify-start  px-6 md:px-10 lg:px-26  z-500 "
     >
-      <div className=" header w-full lg:h-50 border-b border-orange z-501 -translate-y-60 lg:-translate-y-[200%] overflow-hidden">
+      <div className=" header w-full border-b border-orange z-501 -translate-y-60 lg:-translate-y-100  overflow-hidden">
         <h1
           data-scroll-horizontal
           data-scroll-speed="0.9"
-          className="text-[2.75rem] sm:text-5xl md:text-6xl uppercase lg:text-8xl 2xl:text-[12rem] font-bold translate-y-full  mb-4"
+          className="text-[2.75rem] sm:text-5xl md:text-6xl uppercase lg:text-8xl 2xl:text-[12rem] font-bold translate-y-full     sm:mb-4"
         >
           Juan Cruz Elias <span className="text-orange">.</span>
         </h1>
       </div>
 
-      <div className="  w-full h-auto lg:h-[110vh]  flex flex-col-reverse lg:flex-row items-center justify-between">
-        <div className="panel w-full lg:w-2/5 h-auto  lg:h-full   about-text text-center lg:text-start z-501 -translate-x-[120%]">
-          <h2 className="text-3xl !font-text mt-10 lg:mt-0 md:text-3xl lg:text-6xl font-semibold  mb-5">
+      <div className="  w-full h-auto lg:h-[120vh]  2xl:h-[110vh]  flex flex-col-reverse lg:flex-row items-center justify-between">
+        <div className="panel w-full lg:w-2/5 h-auto  lg:h-full   about-text text-center lg:text-start z-501 -translate-x-[140%]">
+          <h2 className="text-3xl !font-text mt-10 lg:mt-0 md:text-3xl xl:text-5xl 2xl:text-6xl font-semibold  mb-5">
             ¿Quien soy?
           </h2>
 
-          <p className="text-lg md:text-xl xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
-            Soy un desarrollador web con 1 año de experiencia, especializado en
+          <p className="text-lg md:text-xl lg:text-base xl:text-xl  2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+            Soy un desarrollador web con más de 1 año de experiencia, especializado en
             crear sitios y sistemas web modernos, visuales y altamente
             funcionales.
           </p>
-          <p className="text-lg md:text-xl xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+          <p className="text-lg md:text-xl lg:text-base  xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
             Ayudo a agencias, marcas y emprendedores a alcanzar sus objetivos
             digitales mediante soluciones personalizadas y efectivas.
           </p>
-          <p className="text-lg md:text-xl xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+          <p className="text-lg md:text-xl lg:text-base  xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
             Mi enfoque se centra en la usabilidad, el rendimiento y la estética,
             asegurando que cada proyecto no solo cumpla con los estándares
             técnicos, sino que también ofrezca una experiencia excepcional al
             usuario.
           </p>
+
+          <h2 className="text-3xl !font-text mt-10 lg:mt-0 md:text-3xl xl:text-5xl  2xl:text-6xl font-semibold  mb-5">
+            Experiencia Laboral
+          </h2>
+          <p className="text-lg md:text-xl lg:text-base xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+            He estado trabajando en proyectos para{" "}
+            <a
+              className="border-b"
+              target="_blank"
+              href="https://www.linkedin.com/company/flex-mkt/"
+            >
+              Flex Mkt Agency
+            </a>
+            , donde he desarrollado sitios web y sistemas personalizados,
+            optimizados para rendimiento y usabilidad. También trabajé para
+            otros emprendimientos y marcas, donde apliqué mis habilidades en
+            desarrollo y diseño.
+          </p>
+          <h2 className="text-3xl !font-text mt-10 lg:mt-0 md:text-3xl xl:text-5xl  2xl:text-6xl font-semibold  mb-5">
+            ¿Dónde me encuentro?
+          </h2>
+          <p className="text-lg md:text-xl lg:text-base xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+            Actualmente vivo en Bahía Blanca, Argentina, pero estoy abierto a
+            trabajar con clientes de todo el mundo.  
+          </p>
         </div>
-        <div className="panel w-full lg:w-1/2 h-120 md:h-190 lg:h-full  overflow-hidden relative -z-10 translate-x-[120%]">
+        <div className="panel w-full md:w-4/5 lg:w-1/2 h-120 md:h-220 lg:h-full  overflow-hidden relative -z-10 translate-x-[120%]">
           <img
             data-scroll
-            data-scroll-speed="-2.5"
+            data-scroll-speed="-1.8"
             src="/images/about-image.jpg"
             alt="About Me"
             className="w-full h-[120%] object-cover"
@@ -119,7 +149,7 @@ export const AboutPageClient = () => {
               <h3 className="text-2xl md:text-3xl xl:text-4xl font-semibold mb-2">
                 {item.title}
               </h3>
-              <p className="text-lg md:text-xl xl:text-2xl">
+              <p className="text-lg md:text-xl 2xl:text-2xl">
                 {item.description}
               </p>
             </div>
@@ -135,23 +165,24 @@ export const AboutPageClient = () => {
         <div className="wrapper w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:px-10 gap-10 md:mt-5 md:pt-5 justify-items-center xl:gap-y-20">
           {[
             {
-              type: "Desarrollo",
+              type: "Desarrollo Fullstack",
               technologies: [
                 "JavaScript",
                 "TypeScript",
                 "React",
                 "Next.js",
+                "Express.js",
                 "Node.js",
               ],
             },
             {
-              type: "Diseño",
-              technologies: ["HTML", "CSS", "Tailwind CSS", "Sass", "Figma"],
+              type: "Estilos y Animaciones",
+              technologies: ["Tailwind CSS", "Sass", "GSAP", "Framer Motion"],
             },
 
             {
-              type: "Animaciones",
-              technologies: ["GSAP", "Framer Motion"],
+              type: "Diseño",
+              technologies: ["Figma", "Adobe Photoshop", "Adobe Illustrator"],
             },
             {
               type: "Herramientas",
@@ -180,7 +211,7 @@ export const AboutPageClient = () => {
                 {item.technologies.map((tech, techIndex) => (
                   <li
                     key={techIndex}
-                    className="text-lg md:text-xl xl:text-2xl"
+                    className="text-lg md:text-xl 2xl:text-2xl"
                   >
                     {tech}
                   </li>

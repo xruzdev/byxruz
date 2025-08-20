@@ -9,7 +9,7 @@
     var(--marquee--base-duration) * var(--char-count, 20)
   );
   overflow: hidden;
-  width: 0%;
+ width: 110%;
   margin-left: -5%;
   
    

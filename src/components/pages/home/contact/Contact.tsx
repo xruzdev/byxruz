@@ -12,14 +12,12 @@ import { useRef } from "react";
 
 export const Contact = () => {
   const contactRef = useRef<HTMLDivElement>(null);
+  const rotateTweenRef = useRef<GSAPTween | null>(null);
 
-  
-
-  const { setCursorSize, setCanAnimate,currentTheme } = useAnimationsStore();
+  const { setCursorSize, setCanAnimate, currentTheme } = useAnimationsStore();
   const { push } = useRouter();
 
   const pathName = usePathname();
-
 
   useGSAP(
     () => {
@@ -28,6 +26,13 @@ export const Contact = () => {
       gsap.registerPlugin(ScrollTrigger);
 
       const mm = gsap.matchMedia();
+
+      rotateTweenRef.current = gsap.to(".rotate", {
+        rotate: 360,
+        duration: 10,
+        ease: "linear",
+        repeat: -1,
+      });
 
       mm.add("(width<64rem)", () => {
         if (!contactRef.current) return;
@@ -61,7 +66,6 @@ export const Contact = () => {
             scrub: 1,
           },
           y: "-=400px",
-          scale: 1.8,
         });
 
         gsap.from(split.chars, {
@@ -131,19 +135,44 @@ export const Contact = () => {
                 });
             }}
             //ref={linkRef}
-            onMouseEnter={() => {
+            onMouseEnter={(e) => {
               setCursorSize(0);
+
+              gsap.to(e.currentTarget, {
+                scale: 1.2,
+                duration: 0.5,
+                ease: "power2.out",
+              });
+              gsap.to(rotateTweenRef.current, {
+                timeScale: 0,
+                duration: 1,
+                ease: "power2.out",
+              });
             }}
-            onMouseLeave={() => {
+            onMouseLeave={(e) => {
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                duration: 0.5,
+                ease: "power2.out",
+              });
+              gsap.to(rotateTweenRef.current, {
+                timeScale: 1,
+                duration: 1,
+                ease: "power2.out",
+              });
               setCursorSize(20);
             }}
             href="/contact"
-            className="  mx-auto hidden lg:flex translate-y-60 2xl:translate-y-50 lg:size-27 relative xl:size-32 border border-orange rounded-full  items-center justify-center"
+            className="  mx-auto hidden lg:flex translate-y-60 active:scale-95 2xl:translate-y-50 lg:size-27 relative xl:size-32 2xl:size-44 border border-orange rounded-full  items-center justify-center"
           >
             <img
-              src={currentTheme === "dark" ? "/contact-link-dark.png" : "/contact-link-light.png"}
+              src={
+                currentTheme === "dark"
+                  ? "/contact-link-dark.png"
+                  : "/contact-link-light.png"
+              }
               alt="contact"
-              className="size-[84%]  absolute animate-rotate-fast"
+              className="rotate size-[84%]  absolute  "
             />
             <div className="size-[50%] border rounded-full  border-orange flex items-center justify-center">
               <img

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "byxruz • Juan Cruz Elias",
     images: [
       {
-        url: "https://byxruz.com/og-image.jpg",
+        url: "https://byxruz.com/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "byxruz • Juan Cruz Elias",
