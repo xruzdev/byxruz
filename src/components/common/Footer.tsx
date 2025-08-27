@@ -15,8 +15,8 @@ export const Footer = () => {
 
       <ul className="flex  justify-between">
         {[
-          { name: "LinkedIn", href: "https://www.linkedin.com/" },
-          { name: "GitHub", href: "https://www.linkedin.com/in/xruz-dev/" },
+          { name: "LinkedIn", href: "https://www.linkedin.com/in/xruz-dev/" },
+          { name: "GitHub", href: "https://github.com/xruzdev" },
           { name: "Instagram", href: "https://www.instagram.com/by.xruz/" },
           {
             name: "Email",

@@ -295,7 +295,7 @@ export const Menu = () => {
 
               {
                 title: "LinkedIn",
-                href: "https://linkedin.com/in/juancruzelias",
+                href: "https://www.linkedin.com/in/xruz-dev/",
               },
               { title: "info@byxruz.com", href: "mailto:info@byxruz.com" },
             ].map((item) => (
