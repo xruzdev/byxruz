@@ -22,29 +22,44 @@ export const Nav = () => {
     () => {
       const linksEl = desktopLinksRef.current;
       const menuEl = desktopMenuRef.current;
+      const mm = gsap.matchMedia();
 
-      if (linksEl) {
-        gsap.set(linksEl, {
-          transformPerspective: 1200,
-          transformStyle: "preserve-3d",
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          filter: "blur(0px)",
-        });
-      }
+      mm.add("(min-width: 1024px)", () => {
+        if (linksEl) {
+          gsap.set(linksEl, {
+            transformPerspective: 1200,
+            transformStyle: "preserve-3d",
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            filter: "blur(0px)",
+          });
+        }
 
-      if (menuEl) {
-        gsap.set(menuEl, {
-          transformPerspective: 1200,
-          transformStyle: "preserve-3d",
-          opacity: 0,
-          y: -8,
-          scale: 0.98,
-          filter: "blur(8px)",
-          pointerEvents: "none",
-        });
-      }
+        if (menuEl) {
+          gsap.set(menuEl, {
+            transformPerspective: 1200,
+            transformStyle: "preserve-3d",
+            opacity: 0,
+            y: -8,
+            scale: 0.98,
+            filter: "blur(8px)",
+            pointerEvents: "none",
+          });
+        }
+      });
+
+      mm.add("(max-width: 1023px)", () => {
+        if (menuEl) {
+          gsap.set(menuEl, {
+            clearProps: "opacity,transform,filter,pointerEvents",
+          });
+        }
+      });
+
+      return () => {
+        mm.revert();
+      };
     },
     { scope: desktopLinksRef },
   );
@@ -54,6 +69,13 @@ export const Nav = () => {
     const menuEl = desktopMenuRef.current;
 
     if (!linksEl || !menuEl) return;
+
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+      gsap.set(menuEl, {
+        clearProps: "opacity,transform,filter,pointerEvents",
+      });
+      return;
+    }
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.35 } });
 

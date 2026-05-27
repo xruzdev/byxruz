@@ -272,7 +272,7 @@ const InteractiveGradient = ({
     softness,
   ]);
 
-  return <div ref={canvasRef} className="gradient-canvas brightness-75 absolute top-0 left-0 w-full h-full z-0 overflow-x-hidden touch-none" />;
+  return <div ref={canvasRef} className="gradient-canvas brightness-75 absolute top-0 left-0 w-full h-full z-0 overflow-hidden" />;
 };
 
 export default InteractiveGradient;
