@@ -1,0 +1,196 @@
+.root {
+  width: 100%;
+  overflow: hidden; 
+}
+
+/* ── Thumbnail strip ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 1rem;
+}
+
+.thumbsViewport {
+  
+  overflow: hidden;
+  flex: 1;
+}
+
+.thumbsTrack {
+  display: flex;
+  gap: 0.5rem;
+  will-change: transform;
+}
+
+.thumbBtn {
+  position: relative;
+  width: 88px;
+  height: 56px;
+  flex-shrink: 0;
+  overflow: visible;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  opacity: 0.35;
+  transition: opacity 0.3s;
+}
+
+.thumbBtn:hover {
+  opacity: 0.65;
+}
+
+.thumbActive {
+  opacity: 1;
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.activeDot {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-main);
+}
+
+/* ── Arrows ── */
+.navBtns {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.navBtn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: opacity 0.3s, background 0.3s, color 0.3s;
+  user-select: none;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: var(--color-main);
+  border-color: var(--color-main);
+  color: var(--color-background);
+}
+
+.navBtn:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+/* ── Main slider ── */
+.viewport {
+  width: 100%;
+ 
+  overflow: hidden;
+  /* permite scroll vertical de página pero captura swipe horizontal */
+  touch-action: pan-y;
+}
+
+.track {
+  display: flex;
+  will-change: transform;
+  gap: 0.5rem;
+}
+
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+  
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.imageWrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+
+.slideImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.slide:hover .slideImg {
+  transform: scale(1.04);
+}
+
+/* ── Slide footer ── */
+.slideInfo {
+  padding: 0.75rem 0.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem;
+}
+
+.slideDesc {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+}
+
+.slideTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Desktop ── */
+@media (min-width: 640px) {
+  .thumbsViewport {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide {
+    width: calc(100% / 3);
+  }
+
+  .slideInfo {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .slideTitle {
+    text-align: right;
+  }
+
+  .track {
+    gap: 1rem;
+  }
+}

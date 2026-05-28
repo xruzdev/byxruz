@@ -104,7 +104,7 @@ export const Hero = () => {
         </div>
       </h1>
 
-        <div className="flex z-500 justify-between gap-4 items-center  w-full h-15 lg:hidden overflow-hidden">
+        <div className="flex z-505 justify-between gap-4 items-center  w-full h-15 lg:hidden overflow-hidden">
         <Link
           href="/contact"
           className="  bg-transparent text-light border border-main uppercase justify-center font-bold  flex items-center rounded-lg h-3/4  flex-1"

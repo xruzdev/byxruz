@@ -43,6 +43,64 @@ export const Menu = ({ desktopVisible = false, desktopMenuRef }: MenuProps) => {
 
   const pathname = usePathname();
 
+  const handleLinkHover = (linkEl: HTMLAnchorElement, isEnter: boolean) => {
+    const words = linkEl.querySelectorAll<HTMLElement>("[data-link-word]");
+    const outgoing = words[0];
+    const incoming = words[1];
+
+    if (!outgoing || !incoming) return;
+
+    const timeline = gsap.timeline({
+      defaults: { duration: 0.45, ease: "power3.out" },
+    });
+
+    if (isEnter) {
+      timeline
+        .set(incoming, {
+          rotationX: 88,
+          y: 14,
+          opacity: 0,
+          filter: "blur(8px)",
+        })
+        .to(outgoing, {
+          rotationX: -88,
+          y: -14,
+          opacity: 0,
+          filter: "blur(8px)",
+        })
+        .to(
+          incoming,
+          {
+            rotationX: 0,
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+          },
+          "<0.05",
+        );
+      return;
+    }
+
+    timeline
+      .to(outgoing, {
+        rotationX: 0,
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+      })
+      .to(
+        incoming,
+        {
+          rotationX: 88,
+          y: 14,
+          opacity: 0,
+          filter: "blur(8px)",
+          color: "var(--main)",
+        },
+        "<0.05",
+      );
+  };
+
   const notifyRouteAfterMenuClose = (href: string) => {
     window.dispatchEvent(
       new CustomEvent("menu:navigate", {
@@ -270,6 +328,12 @@ export const Menu = ({ desktopVisible = false, desktopMenuRef }: MenuProps) => {
               key={item.title}
               href={item.href}
               data-close-menu-first="true"
+              onMouseEnter={(event) => { 
+                handleLinkHover(event.currentTarget, true);
+              }}
+              onMouseLeave={(event) => { 
+                handleLinkHover(event.currentTarget, false);
+              }}
               onClick={async (e) => {
                 e.preventDefault();
 
@@ -282,10 +346,22 @@ export const Menu = ({ desktopVisible = false, desktopMenuRef }: MenuProps) => {
 
                 notifyRouteAfterMenuClose(item.href);
               }}
-              className="menu-link  overflow-hidden py-1 text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-text   items-center justify-start    my-4 group flex gap-5  relative   "
+              className="menu-link overflow-hidden py-1 text-5xl md:text-6xl lg:text-4xl xl:text-5xl font-text items-center justify-start my-4 group flex gap-5 relative perspective-distant"
             >
-              <span className="block  link-item translate-y-20  ">
-                {item.title}
+              <span className="relative inline-block overflow-hidden transform-3d perspective-distant link-item translate-y-20">
+                <span
+                  data-link-word
+                  className="inline-block origin-center transform-3d"
+                >
+                  {item.title}
+                </span>
+                <span
+                  data-link-word
+                  className="pointer-events-none absolute left-0 top-0 inline-block origin-center opacity-0 transform-3d transform-[rotateX(88deg)_translateY(14px)]"
+                  aria-hidden="true"
+                >
+                  {item.title}
+                </span>
               </span>
             </Link>
           ))}
@@ -306,7 +382,7 @@ export const Menu = ({ desktopVisible = false, desktopMenuRef }: MenuProps) => {
                 <Link
                   href={item.href}
                   target="_blank"
-                  className="text-base group group   flex gap-2 relative active:scale-95 transition-all duration-300 ease-in-out"
+                  className="text-base group hover:text-main  flex gap-2 relative active:scale-95 transition-all duration-300 ease-in-out"
                 >
                   {item.title}
                   <div className="w-full absolute lg:group-hover:scale-x-100 scale-x-0 origin-center duration-300 bottom-0 left-0 bg-foreground h-px"></div>

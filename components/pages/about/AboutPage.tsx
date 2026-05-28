@@ -1,11 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useAppStore } from "@/lib/app-store";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
+import { TileImage } from "@/components/common/TileImage/TileImage";
 import Link from "next/link";
 import { useRef } from "react";
+import Image from "next/image";
 
 export const AboutPageClient = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -45,7 +46,7 @@ export const AboutPageClient = () => {
   return (
     <section
       ref={aboutRef}
-      className=" h-auto min-h-screen  py-25 md:py-30 flex flex-col gap-10 lg:gap-20 xl:gap-30 items-center justify-start  px-6 md:px-10 lg:px-26  z-500 "
+      className=" h-auto    py-25 md:py-30 flex flex-col gap-10 lg:gap-20 xl:gap-30 items-center justify-start  px-6 md:px-10 lg:px-26  z-500 "
     >
       <div className=" header w-full border-b border-main z-501 -translate-y-60 lg:-translate-y-100  overflow-hidden">
         <h1
@@ -53,56 +54,49 @@ export const AboutPageClient = () => {
           data-scroll-speed="0.9"
           className="text-[2.75rem] sm:text-5xl md:text-6xl uppercase lg:text-8xl 2xl:text-[12rem] font-bold translate-y-full     sm:mb-4"
         >
-          Juan Cruz Elias <span className="text-main">.</span>
+          About me  <span className="text-main">.</span>
         </h1>
       </div>
 
       <div className="  w-full h-auto lg:h-[120vh]  2xl:h-[110vh]  flex flex-col-reverse lg:flex-row items-center justify-between">
         <div className="panel w-full lg:w-2/5 h-auto  lg:h-full   about-text text-center lg:text-start z-501 translate-x-[-140%]">
-          <h2 className="text-3xl font-text! mt-10 lg:mt-0 md:text-3xl xl:text-5xl 2xl:text-6xl font-semibold  mb-5">
-            ¿Quien soy?
-          </h2>
+           
 
           <p className="text-lg md:text-xl lg:text-base xl:text-xl  2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
-            Soy un desarrollador web con más de 1 año de experiencia,
-            especializado en crear sitios y sistemas web modernos, visuales y
-            altamente funcionales.
+            Soy Juan Cruz Elias, desarrollador full-stack con más de 3 años de experiencia. Creo sitios web y sistemas totalmente personalizados, con diseños únicos y optimizados para rendimiento y usabilidad. 
           </p>
           <p className="text-lg md:text-xl lg:text-base  xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
             Ayudo a agencias, marcas y emprendedores a alcanzar sus objetivos
             digitales mediante soluciones personalizadas y efectivas.
           </p>
-          <p className="text-lg md:text-xl lg:text-base  xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
-            Mi enfoque se centra en la usabilidad, el rendimiento y la estética,
-            asegurando que cada proyecto no solo cumpla con los estándares
-            técnicos, sino que también ofrezca una experiencia excepcional al
-            usuario.
-          </p>
 
-          <h2 className="text-3xl font-text!   mt-10 lg:mt-0 md:text-3xl xl:text-5xl  2xl:text-6xl font-semibold  mb-5">
-            Experiencia Laboral
-          </h2>
-          <p className="text-lg md:text-xl lg:text-base xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
-            He estado trabajando en distintos proyectos donde he desarrollado sitios web y sistemas personalizados,
-            optimizados para rendimiento y usabilidad. También trabajé para
-            otros emprendimientos y marcas, donde apliqué mis habilidades en
-            desarrollo y diseño.
-          </p>
-          <h2 className="text-3xl font-text! mt-10 lg:mt-0 md:text-3xl xl:text-5xl  2xl:text-6xl font-semibold  mb-5">
-            ¿Dónde me encuentro?
+          <h2 className="text-3xl font-text! mt-10 lg:mt-0 md:text-3xl     font-semibold  mb-5">
+            Ubicación
           </h2>
           <p className="text-lg md:text-xl lg:text-base xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
             Actualmente vivo en Bahía Blanca, Argentina, pero estoy abierto a
             trabajar con clientes de todo el mundo.
           </p>
+          
+          <h2 className="text-3xl font-text! mt-10 lg:mt-0 md:text-3xl    font-semibold  mb-5">
+            Enfoque
+          </h2>
+          <p className="text-lg md:text-xl lg:text-base  xl:text-xl 2xl:text-2xl mb-4 lg:ml-5 xl:ml-10">
+           Prefiero un enfoque personalizado. Cada proyecto es único y se planifica cuidadosamente para satisfacer las necesidades específicas del cliente, en lugar de aplicar soluciones genéricas.
+          </p>
+           
+          
         </div>
-        <div className="panel w-full md:w-4/5 lg:w-1/2 h-120 md:h-220 lg:h-full  overflow-hidden relative -z-10 translate-x-[120%]">
-          <img
+
+         <div className="panel w-full md:w-4/5 lg:w-1/2 h-120 md:h-220 lg:h-full  overflow-hidden relative -z-10 translate-x-[120%] ">
+          <Image
             data-scroll
             data-scroll-speed="-1.8"
             src="/images/about-image.jpg"
             alt="About Me"
-            className="w-full h-[120%] object-cover"
+            fill
+            loading="eager"
+            className="w-full h-[110%] object-cover"
           />
         </div>
       </div>
@@ -151,18 +145,18 @@ export const AboutPageClient = () => {
 
       <div className=" w-full flex flex-col mt-10 md:mt-0">
         <h2 className="text-4xl lg:text-6xl  font-text! z-10 mb-10 md:mb-5   pb-5">
-          Tecnologías que manejo
+          Habilidades
         </h2>
 
         <div className="wrapper w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:px-10 gap-10 md:mt-5 md:pt-5 justify-items-center xl:gap-y-20">
           {[
             {
               type: "Desarrollo Web",
-              technologies: ["Next.js", "Wordpress","TypeScript", "React", "Node.js"],
+              technologies: ["Next.js 16 Cache Components", "Wordpress","TypeScript", "React 19", "Node.js"],
             },
             {
-              type: "Estilos y Animaciones",
-              technologies: ["Tailwind CSS", "GSAP",],
+              type: "Animaciones",
+              technologies: ["GSAP 3", "Scroll Trigger","Lenis Smooth Scroll", "Framer Motion"],
             },
 
             {
@@ -174,7 +168,7 @@ export const AboutPageClient = () => {
               technologies: ["Git", "GitHub", "VS Code", "Postman", "Docker"],
             },
             {
-              type: "DBs",
+              type: "Diseño de DBs",
               technologies: ["MongoDB", "MySQL", "PostgreSQL", "Prisma"],
             },
             {
