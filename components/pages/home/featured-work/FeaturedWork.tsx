@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { featuredProjects } from "@/lib/data/projects";
 import { useAppStore } from "@/lib/app-store";
@@ -14,7 +13,7 @@ export const FeaturedWork = () => {
 
   const pathName = usePathname();
 
-  const { setCursorSize, setCursorColor, setCursorText } = useAppStore();
+  const { setCursorSize  } = useAppStore();
 
   useGSAP(
     () => {
@@ -26,9 +25,9 @@ export const FeaturedWork = () => {
       const panels = workItems
         .map((item) => item.querySelector(".panel") as HTMLDivElement | null)
         .filter(Boolean) as HTMLDivElement[];
-      const images = workItems
-        .map((item) => item.querySelector("img") as HTMLImageElement | null)
-        .filter(Boolean) as HTMLImageElement[];
+      const mediaItems = workItems
+        .map((item) => item.querySelector(".work-media") as HTMLVideoElement | null)
+        .filter(Boolean) as HTMLVideoElement[];
 
       if (header) {
         gsap.set(header, { willChange: "transform" });
@@ -36,8 +35,8 @@ export const FeaturedWork = () => {
       if (panels.length) {
         gsap.set(panels, { willChange: "transform" });
       }
-      if (images.length) {
-        gsap.set(images, { willChange: "transform" });
+      if (mediaItems.length) {
+        gsap.set(mediaItems, { willChange: "transform" });
       }
 
       if (header) {
@@ -58,7 +57,7 @@ export const FeaturedWork = () => {
 
       workItems.forEach((item, index) => {
         const panel = item.querySelector(".panel") as HTMLDivElement | null;
-        const image = item.querySelector("img") as HTMLImageElement | null;
+        const video = item.querySelector(".work-media") as HTMLVideoElement | null;
 
         if (panel) {
           gsap.from(panel, {
@@ -77,8 +76,8 @@ export const FeaturedWork = () => {
           });
         }
 
-        if (image) {
-          gsap.from(image, {
+        if (video) {
+          gsap.from(video, {
             force3D: true,
             xPercent: index % 2 === 0 ? 100 : -100,
             rotate: 12,
@@ -92,6 +91,26 @@ export const FeaturedWork = () => {
               invalidateOnRefresh: true,
             },
           });
+
+          const playVideo = () => {
+            const playPromise = video.play();
+            if (playPromise) {
+              playPromise.catch(() => {
+                // Ignoramos bloqueos de autoplay del navegador.
+              });
+            }
+          };
+
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 40%",
+            end: "bottom 15%",
+   
+            onEnter: playVideo,
+            onEnterBack: playVideo,
+            onLeave: () => video.pause(),
+            onLeaveBack: () => video.pause(),
+          });
         }
       });
 
@@ -102,9 +121,11 @@ export const FeaturedWork = () => {
         if (panels.length) {
           gsap.set(panels, { clearProps: "willChange" });
         }
-        if (images.length) {
-          gsap.set(images, { clearProps: "willChange" });
+        if (mediaItems.length) {
+          gsap.set(mediaItems, { clearProps: "willChange" });
         }
+
+        mediaItems.forEach((video) => video.pause());
       };
     },
     { scope: featuredRef, dependencies: [pathName], revertOnUpdate: true },
@@ -113,7 +134,7 @@ export const FeaturedWork = () => {
   return (
     <section
       ref={featuredRef}
-      className="w-screen overflow-hidden   pt-20 gap-20 xl:gap-30     2xl:gap-50 px-4 md:px-10 lg:px-20 xl:px-30  flex flex-col  items-center lg:items-start justify-start lg:justify-start relative"
+      className="w-screen overflow-hidden lg:overflow-visible   pt-20 gap-20 xl:gap-30     2xl:gap-50 px-4 md:px-10 lg:px-20 xl:px-30  flex flex-col  items-center lg:items-start justify-start lg:justify-start relative"
     >
       <div className="header translate-y-50 t h-50 lg:h-40 lg:translate-y-72 flex flex-col md:flex-row items-center justify-center md:items-end md:justify-between w-full">
         <div data-scroll-horizontal data-scroll-speed="0.9" className="">
@@ -249,23 +270,34 @@ export const FeaturedWork = () => {
             {/*  <div className="w-3/4 bg-main h-0.5"></div> */}
           </div>
 
-          <img
-            src={work.image}
-            alt="work"
+          <video
+            src={work.video}
+            poster={work.coverImage}
+            muted
+            loop
+            playsInline
+
+            preload="metadata"
             onClick={() => {
               window.open(work.link, "_blank");
             }}
-            onMouseEnter={() => {
-              setCursorSize(120);
-              setCursorColor("var(--color-main)");
-              setCursorText("Ver página");
+            onMouseEnter={(e: React.MouseEvent<HTMLVideoElement>) => {
+
+              gsap.to(e.currentTarget, {
+                scale: 1.02,
+                boxShadow: "0px 0px 44px 11px rgba(255,95,26,0.93)",
+                ease: "power3.out",
+              });
+             
             }}
-            onMouseLeave={() => {
-              setCursorSize(20);
-              setCursorColor("var(--color-main)");
-              setCursorText("");
+            onMouseLeave={(e: React.MouseEvent<HTMLVideoElement>) => {
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                boxShadow: "0px 0px 0px 0px rgba(255,95,26,0.93)",
+                ease: "power3.in",
+              });
             }}
-            className="w-full h-3/5 lg:h-full lg:w-3/5 2xl:w-1/2  z-0 rounded-2xl object-cover cursor-pointer "
+            className="work-media w-full h-3/5 lg:h-full lg:w-3/5 2xl:w-1/2  z-0 rounded-2xl object-cover cursor-pointer  "
           />
         </div>
       ))}

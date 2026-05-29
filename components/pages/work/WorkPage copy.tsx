@@ -224,7 +224,7 @@ export const WorkContainer = () => {
           </div>
 
           <img
-            src={work.image}
+            src={work.coverImage}
             alt="work"
             onClick={() => {
               window.open(work.link, "_blank");

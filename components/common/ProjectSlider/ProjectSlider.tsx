@@ -9,11 +9,6 @@ import styles from "./ProjectSlider.module.css";
 const TOTAL = projects.length;
 const THUMB_WIDTH = 88 + 8;
 const INIT_EXT = TOTAL + 1; // proyecto 1 centrado al inicio
-const EXTENDED_LEN = TOTAL * 3;
-
-// Pura — fuera del componente para no crear referencia en cada render
-const leftmostFor = (extIdx: number, half: number, visible: number) =>
-  Math.max(0, Math.min(EXTENDED_LEN - visible, extIdx - half));
 
 // Posición del thumb strip: siempre ancla en la copia central (TOTAL + thumbIdx)
 // para que haya thumbs en ambos extremos y nunca se vea vacío
@@ -30,6 +25,7 @@ export const ProjectSlider = () => {
 
   const trackRef = useRef<HTMLDivElement>(null);
   const thumbsTrackRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
 
   const getSlideStep = useCallback((): number => {
     const track = trackRef.current;
@@ -39,22 +35,30 @@ export const ProjectSlider = () => {
     return b ? b.offsetLeft - a.offsetLeft : a.offsetWidth;
   }, []);
 
-  const getVisibleCount = useCallback((step: number): number => {
+  const getTrackXFor = useCallback((extIdx: number): number => {
     const track = trackRef.current;
-    if (!track || step === 0) return 1;
-    return Math.max(
-      1,
-      Math.round((track.parentElement?.offsetWidth ?? 0) / step),
-    );
-  }, []);
+    const viewport = track?.parentElement;
+    if (!track || !viewport) return 0;
+
+    const step = getSlideStep();
+    if (step === 0) return 0;
+
+    const firstSlide = track.children[0] as HTMLElement | undefined;
+    const slideWidth = firstSlide?.offsetWidth ?? step;
+    const viewportWidth = viewport.offsetWidth;
+
+    const rawX = viewportWidth / 2 - (extIdx * step + slideWidth / 2);
+
+    const minX = Math.min(0, viewportWidth - track.scrollWidth);
+    const maxX = 0;
+
+    return Math.max(minX, Math.min(maxX, rawX));
+  }, [getSlideStep]);
 
   /* ── Posiciones iniciales post-mount ── */
   useEffect(() => {
-    const step = getSlideStep();
-    const visible = getVisibleCount(step);
-    const half = Math.floor(visible / 2);
     gsap.set(trackRef.current, {
-      x: -leftmostFor(INIT_EXT, half, visible) * step,
+      x: getTrackXFor(INIT_EXT),
     });
     gsap.set(thumbsTrackRef.current, {
       x: thumbStripX(INIT_EXT % TOTAL),
@@ -66,16 +70,13 @@ export const ProjectSlider = () => {
     (extIdx: number) => {
       if (isAnimating.current) return;
 
-      const step = getSlideStep();
-      const visible = getVisibleCount(step);
-      const half = Math.floor(visible / 2);
-      const leftmost = leftmostFor(extIdx, half, visible);
+      const trackX = getTrackXFor(extIdx);
       const thumbIdx = ((extIdx % TOTAL) + TOTAL) % TOTAL;
 
       isAnimating.current = true;
 
       gsap.to(trackRef.current, {
-        x: -leftmost * step,
+        x: trackX,
         duration: 0.75,
         ease: "power3.inOut",
         onComplete: () => {
@@ -83,7 +84,7 @@ export const ProjectSlider = () => {
           if (extIdx < TOTAL || extIdx >= 2 * TOTAL) {
             const wrapped = (((extIdx % TOTAL) + TOTAL) % TOTAL) + TOTAL;
             gsap.set(trackRef.current, {
-              x: -leftmostFor(wrapped, half, visible) * step,
+              x: getTrackXFor(wrapped),
             });
             activeExtRef.current = wrapped;
             setActiveExt(wrapped);
@@ -101,7 +102,7 @@ export const ProjectSlider = () => {
       activeExtRef.current = extIdx;
       setActiveExt(extIdx);
     },
-    [getSlideStep, getVisibleCount],
+    [getTrackXFor],
   );
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -124,6 +125,23 @@ export const ProjectSlider = () => {
 
   const thumbActive = ((activeExt % TOTAL) + TOTAL) % TOTAL;
 
+  useEffect(() => {
+    videoRefs.current.forEach((video, idx) => {
+      if (!video) return;
+
+      if (idx === activeExt) {
+        const playPromise = video.play();
+        if (playPromise) {
+          playPromise.catch(() => {
+            // Ignora bloqueos de autoplay del navegador.
+          });
+        }
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeExt]);
+
   return (
     <div className={styles.root}>
       {/* Thumbnail strip — 3 copias para que nunca quede vacío */}
@@ -141,7 +159,7 @@ export const ProjectSlider = () => {
                   onClick={() => thumbClick(i % TOTAL)}
                 >
                   <img
-                    src={p.image}
+                    src={p.coverImage}
                     alt={p.title}
                     className={styles.thumbImg}
                     loading="lazy"
@@ -184,12 +202,28 @@ export const ProjectSlider = () => {
               className={styles.slide}
             >
               <div className={styles.imageWrap}>
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  className={styles.slideImg}
-                  loading="lazy"
-                />
+                {i === activeExt ? (
+                  <video
+                    ref={(el) => {
+                      videoRefs.current[i] = el;
+                    }}
+                    src={p.video}
+                    poster={p.coverImage}
+                    className={styles.slideMedia}
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    autoPlay
+                  />
+                ) : (
+                  <img
+                    src={p.coverImage}
+                    alt={p.title}
+                    className={styles.slideMedia}
+                    loading="lazy"
+                  />
+                )}
               </div>
               <div className={styles.slideInfo}>
                 <span className={styles.slideTitle}>{p.title}</span>

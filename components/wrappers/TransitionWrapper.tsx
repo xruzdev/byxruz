@@ -26,12 +26,10 @@ export const TransitionWrapper = ({
     document.documentElement.animate(
       [
         {
-          filter: "blur(0px)",
-          transform: "translateX(0)",
+          filter: "blur(0px) grayscale(0%)", 
         },
         {
-          filter: "blur(5px)",
-          transform: "translateX(-35%)",
+          filter: "blur(5px) grayscale(100%)", 
         },
       ],
       {
@@ -46,12 +44,10 @@ export const TransitionWrapper = ({
     document.documentElement.animate(
       [
         {
-          filter: "blur(5px)",
-          clipPath: "polygon(100% 100%, 100% 100%, 100% 0%, 100% 0%)",
+          filter: "blur(5px) grayscale(100%)", 
         },
         {
-          filter: "blur(0px)",
-          clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+          filter: "blur(0px) grayscale(0%)", 
         },
       ],
       {
