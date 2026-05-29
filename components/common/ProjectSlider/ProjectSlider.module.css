@@ -3,13 +3,16 @@
   overflow: hidden; 
 }
 
+
+
 /* ── Thumbnail strip ── */
 .topBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+   z-index: 20;
+   position: relative;
   gap: 1rem;
 }
 
@@ -112,6 +115,7 @@
   display: flex;
   will-change: transform;
   gap: 0.5rem;
+  
 }
 
 .slide {
@@ -128,6 +132,8 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   position: relative;
+  border-radius: 4px;
+
 }
 
 .slideImg {
@@ -173,6 +179,32 @@
   .thumbsViewport {
     display: block;
   }
+
+  .root::after {
+  content: "";
+  display: block;
+  
+  top: 0;
+  left: 0;
+  height: 100%;
+  width:820px;
+  position: absolute;
+  z-index: 10;
+  background: linear-gradient(to right, var(--color-background), transparent);
+}
+
+.root::before {
+  content: "";
+  display: block;
+  
+  top: 0;
+  right: 0;
+  height: 100%;
+  width:820px;
+  position: absolute;
+  z-index: 10;
+  background: linear-gradient(to left, var(--color-background), transparent);
+}
 }
 
 @media (min-width: 1024px) {

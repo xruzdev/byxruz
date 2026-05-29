@@ -17,8 +17,7 @@ const leftmostFor = (extIdx: number, half: number, visible: number) =>
 
 // Posición del thumb strip: siempre ancla en la copia central (TOTAL + thumbIdx)
 // para que haya thumbs en ambos extremos y nunca se vea vacío
-const thumbStripX = (thumbIdx: number) =>
-  -(TOTAL + thumbIdx - 2) * THUMB_WIDTH;
+const thumbStripX = (thumbIdx: number) => -(TOTAL + thumbIdx - 2) * THUMB_WIDTH;
 
 export const ProjectSlider = () => {
   const extended = useMemo(() => [...projects, ...projects, ...projects], []);
@@ -43,7 +42,10 @@ export const ProjectSlider = () => {
   const getVisibleCount = useCallback((step: number): number => {
     const track = trackRef.current;
     if (!track || step === 0) return 1;
-    return Math.max(1, Math.round((track.parentElement?.offsetWidth ?? 0) / step));
+    return Math.max(
+      1,
+      Math.round((track.parentElement?.offsetWidth ?? 0) / step),
+    );
   }, []);
 
   /* ── Posiciones iniciales post-mount ── */
@@ -57,7 +59,7 @@ export const ProjectSlider = () => {
     gsap.set(thumbsTrackRef.current, {
       x: thumbStripX(INIT_EXT % TOTAL),
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const slideTo = useCallback(
@@ -79,7 +81,7 @@ export const ProjectSlider = () => {
         onComplete: () => {
           isAnimating.current = false;
           if (extIdx < TOTAL || extIdx >= 2 * TOTAL) {
-            const wrapped = ((extIdx % TOTAL) + TOTAL) % TOTAL + TOTAL;
+            const wrapped = (((extIdx % TOTAL) + TOTAL) % TOTAL) + TOTAL;
             gsap.set(trackRef.current, {
               x: -leftmostFor(wrapped, half, visible) * step,
             });
@@ -125,7 +127,9 @@ export const ProjectSlider = () => {
   return (
     <div className={styles.root}>
       {/* Thumbnail strip — 3 copias para que nunca quede vacío */}
-      <div className={`${styles.topBar} overflow-x-hidden md:px-10 lg:px-20 xl:px-30`}>
+      <div
+        className={`${styles.topBar} overflow-x-hidden md:px-10 lg:px-20 xl:px-30`}
+      >
         <div className={styles.thumbsViewport}>
           <div className={styles.thumbsTrack} ref={thumbsTrackRef}>
             {extThumbs.map((p, i) => {
@@ -136,7 +140,12 @@ export const ProjectSlider = () => {
                   className={`${styles.thumbBtn} ${isActive ? styles.thumbActive : ""}`}
                   onClick={() => thumbClick(i % TOTAL)}
                 >
-                  <img src={p.image} alt={p.title} className={styles.thumbImg} loading="lazy" />
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className={styles.thumbImg}
+                    loading="lazy"
+                  />
                   {isActive && <span className={styles.activeDot} />}
                 </button>
               );
@@ -145,10 +154,16 @@ export const ProjectSlider = () => {
         </div>
 
         <div className={styles.navBtns}>
-          <button className={styles.navBtn} onClick={() => slideTo(activeExtRef.current - 1)}>
+          <button
+            className={styles.navBtn}
+            onClick={() => slideTo(activeExtRef.current - 1)}
+          >
             &#8249;
           </button>
-          <button className={styles.navBtn} onClick={() => slideTo(activeExtRef.current + 1)}>
+          <button
+            className={styles.navBtn}
+            onClick={() => slideTo(activeExtRef.current + 1)}
+          >
             &#8250;
           </button>
         </div>
@@ -169,10 +184,14 @@ export const ProjectSlider = () => {
               className={styles.slide}
             >
               <div className={styles.imageWrap}>
-                <img src={p.image} alt={p.title} className={styles.slideImg} loading="lazy" />
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className={styles.slideImg}
+                  loading="lazy"
+                />
               </div>
               <div className={styles.slideInfo}>
-                <span className={styles.slideDesc}>[{p.description}]</span>
                 <span className={styles.slideTitle}>{p.title}</span>
               </div>
             </Link>

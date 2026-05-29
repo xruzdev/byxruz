@@ -135,7 +135,7 @@ export const projects: Project[] = [
     description: "Sitio web institucional para un grupo automotriz, en construcción.",
     image: "/images/projects/casalini.jpg",
     link: "https://casalini-automotres-gilt.vercel.app/",
-    isFeatured: true,
+    isFeatured: false,
     date: "05-2026",
   },
 ];

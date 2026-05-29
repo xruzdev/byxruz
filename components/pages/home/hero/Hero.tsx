@@ -1,5 +1,6 @@
 "use client";
 
+import Copy from "@/components/common/Copy";
 import InteractiveGradient from "@/components/common/InteractiveGradient/InteractiveGradient";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Link from "next/link";
@@ -84,13 +85,11 @@ export const Hero = () => {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex flex-col items-ewnd justify-end w-full h-screen p-4 pb-20 lg:p-10 overflow-hidden"
+      className="relative flex flex-col items-ewnd justify-end w-full h-screen    p-4 pb-20 lg:p-10 overflow-hidden"
     >
       <InteractiveGradient />
 
-       
-
-      <h1 className="text-6xl md:text-8xl 2xl:text-9xl font-bold uppercase  z-10">
+      <h1 className="text-6xl md:text-8xl 2xl:text-9xl font-bold uppercase  z-50">
         <span
           className="inline-block min-w-[8ch]"
           style={{ transformStyle: "preserve-3d" }}
@@ -100,11 +99,11 @@ export const Hero = () => {
           </span>
         </span>{" "}
         <div>
-          by <span className="text-main ">Xruz</span>
+          by <span className="text-main">Xruz</span>
         </div>
       </h1>
 
-        <div className="flex z-505 justify-between gap-4 items-center  w-full h-15 lg:hidden overflow-hidden">
+      <div className="flex z-505 justify-between gap-4 items-center  w-full h-15 lg:hidden overflow-hidden">
         <Link
           href="/contact"
           className="  bg-transparent text-light border border-main uppercase justify-center font-bold  flex items-center rounded-lg h-3/4  flex-1"
@@ -117,9 +116,14 @@ export const Hero = () => {
         >
           Mi Trabajo
         </Link>
-         </div>
+      </div>
+      <p className=" xl:text-lg absolute right-10 bottom-12  2xl:bottom-15   hidden lg:block w-1/3 xl:w-1/4 2xl:w-1/5 text-left z-50">
+        Creo sitios y sistemas web con un enfoque moderno, visual y altamente
+        funcional. Ayudo a agencias, marcas y emprendedores que buscan destacar
+        en el mundo digital.
+      </p>
 
-      <div className="w-screen absolute  h-40 z-500 bg-linear-to-b from-transparent to-background bottom-0 right-0" />
+      <div className="w-screen absolute  h-40 z-40 bg-linear-to-b from-transparent to-background bottom-0 right-0" />
     </section>
   );
 };

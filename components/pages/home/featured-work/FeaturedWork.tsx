@@ -63,7 +63,7 @@ export const FeaturedWork = () => {
         if (panel) {
           gsap.from(panel, {
             force3D: true,
-          y: 0,
+            y: 0,
             yPercent: 70,
             ease: "none",
             scrollTrigger: {
@@ -135,7 +135,7 @@ export const FeaturedWork = () => {
           onMouseEnter={() => {
             setCursorSize(0);
             const overlay = featuredRef.current?.querySelector(
-              `.explore-overlay`
+              `.explore-overlay`,
             ) as HTMLDivElement;
 
             if (overlay) {
@@ -146,7 +146,7 @@ export const FeaturedWork = () => {
             setCursorSize(20);
 
             const overlay = featuredRef.current?.querySelector(
-              `.explore-overlay`
+              `.explore-overlay`,
             ) as HTMLDivElement;
 
             if (overlay) {
@@ -184,31 +184,28 @@ export const FeaturedWork = () => {
             }
           >
             <Copy start="top 100%">
-            <h3
-              className={
-                "   w-full text-center " +
-                (index % 2 === 0 ? "lg:text-left" : "lg:text-right")
-              }
-            >
-              <span className="text-4xl  block lg:text-3xl  xl:text-5xl font-bold text-back">
-                {work.title}
-              </span>
-            </h3>
-              </Copy>
-               <Copy start="top 100%">
+              <h3
+                className={
+                  "   w-full text-center " +
+                  (index % 2 === 0 ? "lg:text-left" : "lg:text-right")
+                }
+              >
+                <span className="text-4xl  block lg:text-3xl  xl:text-5xl font-bold text-back">
+                  {work.title}
+                </span>
+              </h3>
+            </Copy>
+            <Copy start="top 100%">
+              <p
+                className={
+                  "text-neutral-500 text-lg lg:text-base xl:text-xl text-center " +
+                  (index % 2 === 0 ? "lg:text-left" : "lg:text-right")
+                }
+              >
+                {work.description}
+              </p>
+            </Copy>
 
-              
-            <p
-              className={
-                "text-neutral-500 text-lg lg:text-base xl:text-xl text-center " +
-                (index % 2 === 0 ? "lg:text-left" : "lg:text-right")
-              }
-            >
-              {work.description}
-             
-            </p>
- </Copy>
-              
             <Link
               href={work.link}
               target="_blank"
@@ -216,7 +213,7 @@ export const FeaturedWork = () => {
               onMouseEnter={() => {
                 setCursorSize(0);
                 const overlay = featuredRef.current?.querySelector(
-                  `.overlay-${index}`
+                  `.overlay-${index}`,
                 ) as HTMLDivElement;
 
                 if (overlay) {
@@ -227,7 +224,7 @@ export const FeaturedWork = () => {
                 setCursorSize(20);
 
                 const overlay = featuredRef.current?.querySelector(
-                  `.overlay-${index}`
+                  `.overlay-${index}`,
                 ) as HTMLDivElement;
 
                 if (overlay) {
@@ -248,7 +245,7 @@ export const FeaturedWork = () => {
                 }
               />
             </Link>
-               
+
             {/*  <div className="w-3/4 bg-main h-0.5"></div> */}
           </div>
 

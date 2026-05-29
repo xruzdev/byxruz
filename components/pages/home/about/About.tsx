@@ -49,7 +49,7 @@ export const About = () => {
     <section
       id="about"
       ref={aboutRef}
-      className="w-screen overflow-hidden min-h-[50vh] pt-10  gap-10 md:gap-20 lg:gap-0 lg:py-0  px-6 md:px-20 lg:px-26     flex flex-col lg:flex-row  items-center lg:items-center justify-start lg:justify-evenly  relative"
+      className=" lg:hidden w-screen overflow-hidden min-h-[50vh] pt-10  gap-10 md:gap-20 lg:gap-0 lg:py-0  px-6 md:px-20 lg:px-26     flex flex-col lg:flex-row  items-center lg:items-center justify-start lg:justify-evenly  relative"
     >
       <div className="text-base leading-8 about-text text-center   lg:text-start   relative w-full  lg:w-[65%] 2xl:w-[45%] ">
         <Copy>
